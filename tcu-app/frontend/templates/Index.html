@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TCU Inglesia | Inventario de Personas</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">T</span>
+      <div>
+        <strong>TCU Inglesia</strong>
+        <small>Gestión comunitaria</small>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#" class="nav-item active">⌂ <span>Inicio</span></a>
+      <a href="#" class="nav-item">♙ <span>Personas</span></a>
+      <a href="#" class="nav-item">▣ <span>Asistencia</span></a>
+      <a href="#" class="nav-item">◫ <span>Reportes</span></a>
+      <a href="#" class="nav-item">⚙ <span>Configuración</span></a>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="avatar">SH</div>
+      <div>
+        <strong>Administrador</strong>
+        <small>TCU Inglesia</small>
+      </div>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">INVENTARIO GENERAL</p>
+        <h1>Personas registradas</h1>
+        <p class="subtitle">Consulta y administra la información de participantes del TCU.</p>
+      </div>
+
+      <button class="btn-primary">+ Agregar persona</button>
+    </header>
+
+    <section class="stats">
+      <article class="stat-card">
+        <span class="stat-label">TOTAL REGISTRADOS</span>
+        <strong>248</strong>
+        <small class="positive">↑ 12 este mes</small>
+      </article>
+
+      <article class="stat-card accent-blue">
+        <span class="stat-label">ACTIVOS</span>
+        <strong>196</strong>
+        <small>Participan actualmente</small>
+      </article>
+
+      <article class="stat-card accent-orange">
+        <span class="stat-label">PENDIENTES</span>
+        <strong>18</strong>
+        <small>Información incompleta</small>
+      </article>
+
+      <article class="stat-card accent-green">
+        <span class="stat-label">ASISTENCIA PROMEDIO</span>
+        <strong>87%</strong>
+        <small>Últimos 30 días</small>
+      </article>
+    </section>
+
+    <section class="people-section">
+      <div class="section-header">
+        <div>
+          <h2>Directorio de personas</h2>
+          <p>Mostrando 6 de 248 registros</p>
+        </div>
+
+        <div class="actions">
+          <label class="search">
+            <span>⌕</span>
+            <input type="text" placeholder="Buscar por nombre o cédula..." />
+          </label>
+
+          <button class="filter-btn">☷ Filtros</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>PERSONA</th>
+              <th>CÉDULA</th>
+              <th>CONTACTO</th>
+              <th>COMUNIDAD</th>
+              <th>ESTADO</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>
+                <div class="person">
+                  <div class="person-avatar blue">MG</div>
+                  <div>
+                    <strong>María González</strong>
+                    <small>Participante · Nivel básico</small>
+                  </div>
+                </div>
+              </td>
+              <td>1-1548-0982</td>
+              <td>
+                <strong>8888-2145</strong>
+                <small>maria@email.com</small>
+              </td>
+              <td>San Rafael</td>
+              <td><span class="status active-status">Activo</span></td>
+              <td><button class="more">•••</button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="person">
+                  <div class="person-avatar orange">JC</div>
+                  <div>
+                    <strong>José Castro</strong>
+                    <small>Participante · Nivel intermedio</small>
+                  </div>
+                </div>
+              </td>
+              <td>2-0987-4412</td>
+              <td>
+                <strong>7012-9084</strong>
+                <small>jose@email.com</small>
+              </td>
+              <td>Belén</td>
+              <td><span class="status active-status">Activo</span></td>
+              <td><button class="more">•••</button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="person">
+                  <div class="person-avatar purple">AR</div>
+                  <div>
+                    <strong>Andrea Rodríguez</strong>
+                    <small>Participante · Nivel básico</small>
+                  </div>
+                </div>
+              </td>
+              <td>1-1876-2310</td>
+              <td>
+                <strong>6345-1182</strong>
+                <small>andrea@email.com</small>
+              </td>
+              <td>Santa Ana</td>
+              <td><span class="status pending-status">Pendiente</span></td>
+              <td><button class="more">•••</button></td>
+            </tr>
+
+            <tr>
+              <td>
+                <div class="person">
+                  <div class="person-avatar green">DL</div>
+                  <div>
+                    <strong>Daniel López</strong>
+                    <small>Voluntario · TCU</small>
+                  </div>
+                </div>
+              </td>
+              <td>1-1690-5541</td>
+              <td>
+                <strong>8622-4091</strong>
+                <small>daniel@email.com</small>
+              </td>
+              <td>Heredia Centro</td>
+              <td><span class="status active-status">Activo</span></td>
+              <td><button class="more">•••</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <footer class="table-footer">
+        <span>Página 1 de 42</span>
+        <div>
+          <button disabled>← Anterior</button>
+          <button class="next">Siguiente →</button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+</body>
+</html>
