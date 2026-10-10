@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{% endblock %} | Efrata</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/acceso.css') }}">
+  <script src="{{ url_for('static', path='/js/Acceso.js') }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#formulario">Ir al formulario</a>
+  <div class="access-layout">
+    <header class="identity-panel">
+      <a href="/" class="identity" aria-label="Efrata, inicio">
+        <span class="identity-mark" aria-hidden="true">E</span>
+        <span><strong>Efrata</strong><span class="identity-subtitle">Nuestra iglesia</span></span>
+      </a>
+      <div class="identity-message">
+        <span class="gold-line" aria-hidden="true"></span>
+        <h2>Un lugar para<br>estar cerca.</h2>
+        <p>Bienvenido al espacio de nuestra comunidad.</p>
+      </div>
+      <p class="identity-footer">Iglesia Efrata</p>
+    </header>
+    <main class="form-panel" id="formulario" tabindex="-1">
+      <div class="form-content">
+        {% block back_link %}<a href="/" class="back-link">← Volver al inicio</a>{% endblock %}
+        {% block content %}{% endblock %}
+        <p class="preview-note">Vista previa. Los formularios todavía no crean cuentas ni inician sesiones.</p>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

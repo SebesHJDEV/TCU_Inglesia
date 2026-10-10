@@ -1,0 +1,26 @@
+{% extends "AccesoBase.html" %}
+{% block title %}Iniciar sesión{% endblock %}
+{% block back_link %}{% endblock %}
+{% block content %}
+<header class="form-heading">
+  <p class="eyebrow">Bienvenido a Efrata</p>
+  <h1>Iniciar sesión</h1>
+  <p>Ingresa tus datos para acceder a tu cuenta.</p>
+</header>
+<form class="access-form" onsubmit="return false;">
+  <div class="field">
+    <label for="correo">Correo electrónico</label>
+    <input id="correo" type="email" autocomplete="username" placeholder="nombre@ejemplo.com" required>
+  </div>
+  <div class="field">
+    <label for="clave">Contraseña</label>
+    <div class="password-field">
+      <input id="clave" type="password" autocomplete="current-password" required>
+      <button type="button" class="show-password" data-password="clave" aria-controls="clave" aria-label="Mostrar contraseña" aria-pressed="false">Mostrar</button>
+    </div>
+  </div>
+  <button type="button" class="primary-button preview-action">Entrar</button>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+<p class="switch-page">¿Todavía no tienes una cuenta? <a href="/registro">Crear una cuenta</a></p>
+{% endblock %}
