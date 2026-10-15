@@ -1,0 +1,57 @@
+name: efrata
+
+services:
+  app:
+    build: .
+    image: efrata-app:servidor
+    # Caddy comunica el HTTPS original. El puerto de la app sigue privado.
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--proxy-headers", "--forwarded-allow-ips", "*"]
+    restart: unless-stopped
+    env_file:
+      - .env.server
+    environment:
+      PGHOST: iglesia-db
+      PGPORT: "5432"
+      POSTGRES_DB: gestion_iglesia
+      POSTGRES_USER: iglesia_app
+    ports:
+      - "127.0.0.1:8000:8000"
+    networks:
+      - datos
+      - web
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    depends_on:
+      - app
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - web
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+# PostgreSQL conserva su contenedor y volumen existentes.
+networks:
+  web:
+  datos:
+    external: true
+    name: efrata-interna
+
+volumes:
+  caddy_data:
+  caddy_config:

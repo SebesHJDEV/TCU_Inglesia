@@ -1,0 +1,24 @@
+# Solo se envian a Docker los archivos necesarios para ejecutar la app.
+**
+!Dockerfile
+!.dockerignore
+!pyproject.toml
+!uv.lock
+!main.py
+!backend/
+!backend/**
+!frontend/
+!frontend/**
+
+# Exclusiones adicionales dentro de las carpetas permitidas.
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.env
+**/.env.*
+**/*.key
+**/*.pem
+**/*.pub
+**/*.dump
+**/backups/
+backend/tests/

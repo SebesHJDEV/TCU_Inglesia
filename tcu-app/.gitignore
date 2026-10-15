@@ -7,3 +7,6 @@ __pycache__/
 .pytest_cache/
 backups/
 *.dump
+*.key
+*.key.pub
+*.pem
