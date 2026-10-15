@@ -1,0 +1,90 @@
+name: Desplegar app en Oracle
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: oracle-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - name: Obtener codigo
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Preparar conexion SSH
+        env:
+          SSH_KEY: ${{ secrets.ORACLE_SSH_KEY }}
+          KNOWN_HOSTS: ${{ secrets.ORACLE_KNOWN_HOSTS }}
+        run: |
+          umask 077
+          mkdir -p "$HOME/.ssh"
+          printf '%s\n' "$SSH_KEY" > "$HOME/.ssh/oracle"
+          printf '%s\n' "$KNOWN_HOSTS" > "$HOME/.ssh/known_hosts"
+          ssh-keygen -y -f "$HOME/.ssh/oracle" > /dev/null
+
+      - name: Transferir codigo de la aplicacion
+        env:
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+          ORACLE_USER: ${{ secrets.ORACLE_USER }}
+        run: |
+          export RSYNC_RSH="ssh -i $HOME/.ssh/oracle -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 -o ServerAliveInterval=30"
+          ssh -i "$HOME/.ssh/oracle" -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 "$ORACLE_USER@$ORACLE_HOST" \
+            'test -f /home/ubuntu/efrata/app/.env.server && test -f /home/ubuntu/efrata/app/compose.yaml && command -v rsync && sudo -n docker compose version'
+          # Solo archivos de ejecucion; las credenciales e infraestructura quedan en Oracle.
+          rsync -az --chmod=D755,F644 \
+            tcu-app/Dockerfile tcu-app/.dockerignore tcu-app/pyproject.toml tcu-app/uv.lock tcu-app/main.py \
+            "$ORACLE_USER@$ORACLE_HOST:/home/ubuntu/efrata/app/"
+          for folder in backend frontend; do
+            rsync -az --delete --chmod=D755,F644 \
+              --exclude='__pycache__/' --exclude='*.pyc' --exclude='.env*' \
+              --exclude='*.key' --exclude='*.pem' --exclude='*.dump' \
+              "tcu-app/$folder/" "$ORACLE_USER@$ORACLE_HOST:/home/ubuntu/efrata/app/$folder/"
+          done
+
+      - name: Construir y actualizar la app
+        env:
+          ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+          ORACLE_USER: ${{ secrets.ORACLE_USER }}
+        run: |
+          ssh -i "$HOME/.ssh/oracle" -o BatchMode=yes -o StrictHostKeyChecking=yes -o ConnectTimeout=20 -o ServerAliveInterval=30 \
+            "$ORACLE_USER@$ORACLE_HOST" 'bash -se' <<'REMOTE'
+          cd /home/ubuntu/efrata/app
+          sudo -n docker compose config --quiet
+          sudo -n docker image tag efrata-app:servidor efrata-app:anterior
+          # Verifica las importaciones antes de reemplazar el contenedor que funciona.
+          if ! sudo -n docker compose build app || \
+             ! sudo -n docker compose run --rm --no-deps app python -c 'from main import app'; then
+            sudo -n docker image tag efrata-app:anterior efrata-app:servidor
+            exit 1
+          fi
+
+          rollback() {
+            echo "La nueva version fallo; se restaura la imagen anterior."
+            sudo -n docker image tag efrata-app:anterior efrata-app:servidor
+            sudo -n docker compose up -d --no-deps --no-build app
+          }
+          if ! sudo -n docker compose up -d --no-deps --no-build app; then
+            rollback
+            exit 1
+          fi
+          for attempt in $(seq 1 12); do
+            if curl -fsS --max-time 10 http://127.0.0.1:8000/ -o /dev/null && \
+               curl -fsS --max-time 10 http://127.0.0.1:8000/api/prueba -o /dev/null; then
+              echo "Aplicacion y consulta de PostgreSQL verificadas."
+              exit 0
+            fi
+            sleep 5
+          done
+          rollback
+          exit 1
+          REMOTE
