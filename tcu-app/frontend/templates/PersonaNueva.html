@@ -1,0 +1,10 @@
+{% extends "PanelBase.html" %}
+{% from "CamposPersona.html" import campos_persona %}
+{% block title %}Agregar persona{% endblock %}
+{% block styles %}<link rel="stylesheet" href="{{ url_for('static', path='/css/formulario.css') }}?v=registro-2">{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', path='/js/Formulario.js') }}" defer></script>{% endblock %}
+{% block content %}
+<a href="/admin/personas" class="back-link">← Volver a Personas</a>
+<header class="topbar"><div><p class="eyebrow">DIRECTORIO</p><h1>Agregar persona</h1><p class="subtitle">Una ficha para reunir sus datos personales, de contacto y laborales.</p></div></header>
+<section class="surface form-surface section-space"><p class="design-note">Vista de diseño. Este formulario todavía no crea ni modifica registros.</p><p class="field-help">Los campos con <span class="required">*</span> son obligatorios.</p><form class="person-form" data-person-preview>{{ campos_persona() }}<div class="form-actions"><a href="/admin/personas" class="btn-secondary">Volver al directorio</a><button type="submit" class="btn-primary">Revisar ficha</button></div><div class="form-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div></form></section>
+{% endblock %}

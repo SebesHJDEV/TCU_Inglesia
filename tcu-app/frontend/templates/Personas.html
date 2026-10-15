@@ -1,0 +1,20 @@
+{% extends "PanelBase.html" %}
+{% block title %}Personas{% endblock %}
+{% block content %}
+<header class="topbar"><div><p class="eyebrow">NUESTRA COMUNIDAD</p><h1>Personas</h1><p class="subtitle">Encuentra la información que necesitas, desde un mismo directorio.</p></div><a class="btn-primary" href="/admin/personas/nueva">+ Agregar persona</a></header>
+<section class="surface section-space" aria-labelledby="buscar-titulo">
+  <div class="section-header"><div><h2 id="buscar-titulo">Buscar en el directorio</h2><p>Combina los filtros para encontrar personas por contacto, oficio o empleo.</p></div></div>
+  <form class="filter-form" data-filter-preview>
+    <div class="field field-wide"><label for="buscar-persona">Nombre, cédula o teléfono</label><input type="search" id="buscar-persona" name="buscar" placeholder="Escribe para buscar una persona"></div>
+    <div class="field"><label for="filtro-oficio">Oficio o profesión</label><input id="filtro-oficio" name="oficio" placeholder="Ej. Cocina, electricidad"></div>
+    <div class="field"><label for="filtro-situacion">Situación laboral</label><select id="filtro-situacion" name="situacion"><option value="">Todas las situaciones</option><option>Con empleo</option><option>Por cuenta propia</option><option>Sin empleo</option><option>Estudiante</option><option>Pensionado/a</option><option>Otra situación</option></select></div>
+    <div class="field"><label for="filtro-empleo">Busca empleo</label><select id="filtro-empleo" name="empleo"><option value="">Todas las personas</option><option>Sí</option><option>No</option></select></div>
+    <div class="filter-actions"><button type="submit" class="btn-primary">Aplicar filtros</button><button type="reset" class="btn-secondary">Limpiar</button></div>
+    <p class="filter-status field-wide" role="status" aria-live="polite">La búsqueda se conectará al directorio de personas en la siguiente etapa.</p>
+  </form>
+</section>
+<section class="surface section-space" aria-labelledby="directorio-titulo">
+  <div class="section-header"><div><h2 id="directorio-titulo">Directorio de personas</h2><p>Información personal, contacto y trabajo.</p></div><a class="text-link" href="/admin/personas/ficha">Ver estructura de una ficha →</a></div>
+  <div class="table-wrap" role="region" aria-label="Directorio de personas" tabindex="0"><table><thead><tr><th scope="col">Persona</th><th scope="col">Contacto</th><th scope="col">Oficio / profesión</th><th scope="col">Situación laboral</th><th scope="col">Ficha</th></tr></thead><tbody><tr><td colspan="5"><div class="empty-state"><span class="empty-symbol" aria-hidden="true">♙</span><h3>El directorio comienza aquí</h3><p>Las fichas aparecerán en este espacio cuando conectemos los datos. Por ahora puedes revisar el formulario y la estructura de una ficha.</p><a href="/admin/personas/nueva" class="btn-secondary">Ver formulario de persona</a></div></td></tr></tbody></table></div>
+</section>
+{% endblock %}

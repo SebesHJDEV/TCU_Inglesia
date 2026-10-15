@@ -1,52 +1,33 @@
-{% extends "AccesoBase.html" %}
-{% block title %}Crear una cuenta{% endblock %}
-{% block content %}
-<header class="form-heading">
-  <p class="eyebrow">Forma parte de nuestra comunidad</p>
-  <h1>Crear una cuenta</h1>
-  <p>Completa estos datos para preparar tu registro.</p>
-</header>
-<form id="registro-form" class="access-form" novalidate>
-  <div class="field">
-    <label for="cedula">Cédula</label>
-    <input id="cedula" name="cedula" type="text" inputmode="numeric" pattern="[0-9]{9}" minlength="9" maxlength="9" autocomplete="off" aria-describedby="ayuda-cedula" required>
-    <small id="ayuda-cedula">Escribe los 9 dígitos, sin guiones.</small>
-  </div>
-  <div class="field">
-    <label for="nombres">Nombre(s)</label>
-    <input id="nombres" name="nombres" type="text" autocomplete="given-name" maxlength="100" required>
-  </div>
-  <div class="field">
-    <label for="primer_apellido">Primer apellido</label>
-    <input id="primer_apellido" name="primer_apellido" type="text" maxlength="100" required>
-  </div>
-  <div class="field">
-    <label for="segundo_apellido">Segundo apellido (opcional)</label>
-    <input id="segundo_apellido" name="segundo_apellido" type="text" maxlength="100">
-  </div>
-  <div class="field">
-    <label for="correo">Correo electrónico</label>
-    <input id="correo" name="correo" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" placeholder="nombre@ejemplo.com" required>
-  </div>
-  <div class="field">
-    <label for="clave">Contraseña</label>
-    <div class="password-field">
-      <input id="clave" name="clave" type="password" autocomplete="new-password" minlength="12" maxlength="128" aria-describedby="ayuda-clave" required>
-      <button type="button" class="show-password" data-password="clave" aria-controls="clave" aria-label="Mostrar contraseña" aria-pressed="false">Mostrar</button>
-    </div>
-    <small id="ayuda-clave">Usa entre 12 y 128 caracteres. Puedes usar una frase larga.</small>
-  </div>
-  <div class="field">
-    <label for="confirmar">Confirmar contraseña</label>
-    <div class="password-field">
-      <input id="confirmar" type="password" autocomplete="new-password" maxlength="128" required>
-      <button type="button" class="show-password" data-password="confirmar" aria-controls="confirmar" aria-label="Mostrar confirmación de contraseña" aria-pressed="false">Mostrar</button>
-    </div>
-  </div>
-  <button type="submit" class="primary-button">Crear cuenta</button>
-  <div id="registro-aviso" class="form-status notice" role="status" aria-live="polite" aria-atomic="true" tabindex="-1" hidden></div>
-</form>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.26.25/dist/sweetalert2.all.min.js" defer></script>
-<script src="{{ url_for('static', path='/js/Registro.js') }}" defer></script>
-<p class="switch-page">¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a></p>
-{% endblock %}
+{% from "CamposPersona.html" import campos_persona %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de personas | Efrata</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/formulario.css') }}?v=registro-2">
+  <script src="{{ url_for('static', path='/js/Formulario.js') }}" defer></script>
+</head>
+<body class="public-page">
+  <header class="public-header"><a class="public-brand" href="/" aria-label="Efrata, inicio"><span class="brand-mark" aria-hidden="true">E</span><span><strong>Efrata</strong><small>Nuestra comunidad</small></span></a><span class="public-header-note">Cada persona cuenta.</span></header>
+  <main class="public-layout">
+    <section class="public-intro" aria-labelledby="registro-titulo">
+      <p class="eyebrow">REGISTRO DE NUESTRA COMUNIDAD</p>
+      <h1 id="registro-titulo">Queremos conocerte mejor.</h1>
+      <p>Comparte un poco sobre ti, cómo contactarte y lo que sabes hacer.</p>
+      <p class="intro-note">No necesitas crear una cuenta ni una contraseña.</p>
+      <ol class="form-outline" aria-label="Secciones del formulario"><li><a href="#datos-personales"><span>01</span> Información personal</a></li><li><a href="#datos-contacto"><span>02</span> Contacto</a></li><li><a href="#datos-laborales"><span>03</span> Trabajo y experiencia</a></li></ol>
+    </section>
+    <section class="public-form-panel" aria-labelledby="form-titulo">
+      <div class="section-heading"><h2 id="form-titulo">Completa tus datos</h2><p><span class="required">*</span> Campos obligatorios</p></div>
+      <p class="design-note">Vista previa del formulario · El envío aún no está habilitado.</p>
+      <form id="formulario" method="post" class="person-form" data-person-preview>
+        {{ campos_persona() }}
+        <div class="form-actions"><p class="field-help">Revisa tus datos antes de continuar.</p><button type="submit" class="btn-primary">Revisar formulario <span aria-hidden="true">→</span></button></div>
+        <div class="form-feedback" role="status" aria-live="polite" tabindex="-1" hidden></div>
+      </form>
+    </section>
+  </main>
+  <footer class="public-footer">Iglesia Efrata <span>Una comunidad que se conoce y se acompaña.</span></footer>
+</body>
+</html>

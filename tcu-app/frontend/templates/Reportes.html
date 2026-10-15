@@ -1,0 +1,14 @@
+{% extends "PanelBase.html" %}
+{% block title %}Reportes{% endblock %}
+{% block content %}
+<header class="topbar"><div><p class="eyebrow">INFORMACIÓN A TU MEDIDA</p><h1>Reportes</h1><p class="subtitle">Prepara un listado con las personas y los campos que necesitas consultar.</p></div></header>
+<form class="report-layout section-space" data-report-preview>
+  <section class="surface form-surface"><div class="section-heading"><h2>Preparar listado</h2><p>Selecciona un grupo y la información que quieres incluir.</p></div>
+    <div class="field"><label for="tipo-reporte">Personas a incluir</label><select id="tipo-reporte" name="grupo"><option value="todas">Todas las personas</option><option value="empleo">Personas que buscan empleo</option><option value="oficio">Personas por oficio o profesión</option><option value="pendientes">Registros por revisar</option></select></div>
+    <div class="field section-space"><label for="reporte-oficio">Oficio o profesión <span class="optional">Opcional</span></label><input id="reporte-oficio" name="oficio" placeholder="Ej. Electricidad"></div>
+    <fieldset class="column-options"><legend>Columnas del listado</legend>{% for name, label, checked in [('nombre', 'Nombre completo', true), ('cedula', 'Cédula', false), ('telefono', 'Teléfono principal', true), ('correo', 'Correo electrónico', false), ('oficio', 'Oficio o profesión', true), ('situacion', 'Situación laboral', false), ('empleo', 'Busca empleo', false)] %}<label class="check-option"><input type="checkbox" name="columnas" value="{{ name }}"{% if checked %} checked{% endif %}> {{ label }}</label>{% endfor %}</fieldset>
+    <button type="submit" class="btn-primary">Actualizar vista previa</button>
+  </section>
+  <section class="surface report-preview"><div class="section-header"><div><h2>Vista previa del reporte</h2><p>Selección de columnas</p></div><button type="button" class="btn-secondary" data-preview-action="La exportación se habilitará cuando conectemos los reportes con la base de datos.">Exportar listado</button></div><div class="table-wrap" role="region" aria-label="Vista previa de columnas del reporte" tabindex="0"><table><thead><tr id="reporte-columnas"><th scope="col">Nombre completo</th><th scope="col">Teléfono principal</th><th scope="col">Oficio o profesión</th></tr></thead><tbody><tr><td id="reporte-vacio" colspan="3"><div class="empty-state"><span class="empty-symbol" aria-hidden="true">▤</span><h3>Tu listado, con lo necesario</h3><p>Puedes cambiar las columnas para revisar la presentación. Los registros y las exportaciones se conectarán después.</p></div></td></tr></tbody></table></div><p class="report-status inline-status" role="status" aria-live="polite">3 columnas seleccionadas. Sin datos conectados.</p></section>
+</form>
+{% endblock %}

@@ -16,10 +16,10 @@ document.querySelectorAll(".access-form:not(#registro-form)").forEach((form) => 
     correo.value = correo.value.trim().toLowerCase();
   };
   correo.addEventListener("blur", normalizarCorreo);
-  form.addEventListener("submit", (event) => event.preventDefault());
-  form.querySelector(".preview-action").addEventListener("click", () => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
     normalizarCorreo();
     if (!form.reportValidity()) return;
-    form.querySelector(".form-status").textContent = "Esta es una vista previa. El acceso y la creación de cuentas estarán disponibles más adelante.";
+    form.querySelector(".form-status").textContent = "El inicio de sesión todavía está en preparación. Puedes revisar la navegación con el enlace al panel de demostración.";
   });
 });

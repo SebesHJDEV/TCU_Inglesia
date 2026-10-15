@@ -1,0 +1,32 @@
+{% macro campos_persona() %}
+<fieldset id="datos-personales" class="form-section">
+  <legend><span class="section-number">01</span> Información personal</legend>
+  <p class="field-help section-description">Comencemos por los datos que permiten identificarte.</p>
+  <div class="form-grid">
+    <div class="field"><label for="cedula">Cédula <span class="required">*</span></label><input id="cedula" name="cedula" type="text" inputmode="numeric" pattern="[0-9]{9}" minlength="9" maxlength="9" required aria-describedby="cedula-ayuda"><small id="cedula-ayuda">9 dígitos, sin guiones.</small></div>
+    <div class="field"><label for="nombres">Nombre(s) <span class="required">*</span></label><input id="nombres" name="nombres" autocomplete="given-name" maxlength="100" required></div>
+    <div class="field"><label for="primer-apellido">Primer apellido <span class="required">*</span></label><input id="primer-apellido" name="primer_apellido" autocomplete="family-name" maxlength="100" required></div>
+    <div class="field"><label for="segundo-apellido">Segundo apellido <span class="optional">Opcional</span></label><input id="segundo-apellido" name="segundo_apellido" maxlength="100"></div>
+  </div>
+</fieldset>
+<fieldset id="datos-contacto" class="form-section">
+  <legend><span class="section-number">02</span> Contacto</legend>
+  <p class="field-help section-description">Indica cómo podemos comunicarnos contigo.</p>
+  <div class="form-grid">
+    <div class="field"><label for="telefono">Teléfono principal <span class="required">*</span></label><input id="telefono" name="telefono" type="tel" autocomplete="tel" maxlength="25" required placeholder="Ej. 8888 8888"></div>
+    <div class="field"><label for="telefono-alternativo">Teléfono alternativo <span class="optional">Opcional</span></label><input id="telefono-alternativo" name="telefono_alternativo" type="tel" maxlength="25"></div>
+    <div class="field field-wide"><label for="correo">Correo electrónico <span class="optional">Opcional</span></label><input id="correo" name="correo" type="email" autocomplete="email" autocapitalize="none" spellcheck="false" maxlength="254" placeholder="nombre@ejemplo.com"></div>
+  </div>
+</fieldset>
+<fieldset id="datos-laborales" class="form-section">
+  <legend><span class="section-number">03</span> Trabajo y experiencia</legend>
+  <p class="field-help section-description">Cuéntanos sobre lo que haces y lo que sabes hacer.</p>
+  <div class="form-grid">
+    <div class="field"><label for="situacion-laboral">Situación laboral</label><select id="situacion-laboral" name="situacion_laboral"><option value="">Seleccionar una opción</option><option value="empleado">Trabajo para una empresa o institución</option><option value="independiente">Trabajo por cuenta propia</option><option value="sin-empleo">Actualmente no tengo empleo</option><option value="estudiante">Estudio</option><option value="jubilado">Estoy pensionado/a</option><option value="otra">Otra situación</option></select></div>
+    <div class="field"><label for="busca-empleo">¿Buscas una oportunidad de empleo?</label><select id="busca-empleo" name="busca_empleo"><option value="">Seleccionar una opción</option><option value="si">Sí</option><option value="no">No</option></select></div>
+    <div class="field"><label for="ocupacion">Trabajo u ocupación actual</label><input id="ocupacion" name="ocupacion" maxlength="150" placeholder="Ej. Asistente de cocina"></div>
+    <div class="field"><label for="oficio">Oficio o profesión</label><input id="oficio" name="oficio" maxlength="150" placeholder="Ej. Electricidad, docencia"></div>
+    <div class="field field-wide"><label for="experiencia">Experiencia y habilidades</label><textarea id="experiencia" name="experiencia" rows="4" maxlength="1500" placeholder="Puedes mencionar trabajos anteriores, conocimientos o actividades que sabes realizar."></textarea></div>
+  </div>
+</fieldset>
+{% endmacro %}

@@ -1,0 +1,12 @@
+{% extends "PanelBase.html" %}
+{% block title %}Ficha de persona{% endblock %}
+{% block content %}
+<a href="/admin/personas" class="back-link">← Volver a Personas</a>
+<header class="topbar"><div><p class="eyebrow">DIRECTORIO / FICHA</p><h1>Ficha de persona</h1><p class="subtitle">Así se organizará la información de cada persona.</p></div><a href="/admin/personas/nueva" class="btn-secondary">Ver campos del formulario</a></header>
+<div class="design-note section-space">Estructura de ejemplo sin datos personales. No corresponde a una persona registrada.</div>
+<div class="detail-grid section-space">
+  {% for title, fields in [('Información personal', ['Nombre completo', 'Cédula']), ('Contacto', ['Teléfono principal', 'Teléfono alternativo', 'Correo electrónico']), ('Trabajo y experiencia', ['Situación laboral', 'Busca empleo', 'Ocupación actual', 'Oficio o profesión', 'Experiencia y habilidades'])] %}
+  <section class="surface detail-section"><h2>{{ title }}</h2><dl>{% for field in fields %}<div><dt>{{ field }}</dt><dd>Por completar</dd></div>{% endfor %}</dl></section>
+  {% endfor %}
+</div>
+{% endblock %}

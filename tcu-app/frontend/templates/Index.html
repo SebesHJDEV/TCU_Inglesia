@@ -1,78 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TCU Inglesia | Inventario de Personas</title>
-  <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
-</head>
-<body>
-  <aside class="sidebar">
-    <div class="sidebar-heading">
-    <div class="brand">
-      <span class="brand-mark">T</span>
-      <div><strong>TCU Inglesia</strong><small>Gestión comunitaria</small></div>
-    </div>
-      <button type="button" class="mobile-menu-toggle" aria-controls="main-navigation" aria-expanded="false" hidden>
-        <span aria-hidden="true">☰</span> <span class="menu-text">Menú</span>
-      </button>
-    </div>
-    <nav id="main-navigation" aria-label="Navegación principal">
-      <a href="#registros" class="nav-item">Prueba de datos</a>
-      <a href="/" class="nav-item active">⌂ <span>Inicio</span></a>
-      <a href="#" class="nav-item">♙ <span>Personas</span></a>
-      <a href="#" class="nav-item">▣ <span>Asistencia</span></a>
-      <a href="#" class="nav-item">◫ <span>Reportes</span></a>
-      <a href="#" class="nav-item">⚙ <span>Configuración</span></a>
-    </nav>
-    <div class="sidebar-user">
-      <div class="avatar">SH</div>
-      <div><strong>Administrador</strong><small>TCU Inglesia</small></div>
-    </div>
-  </aside>
-  <main class="content">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">INVENTARIO GENERAL</p>
-        <h1>Personas registradas</h1>
-        <p class="subtitle">Consulta y administra la información de participantes del TCU.</p>
-      </div>
-      <button class="btn-primary">+ Agregar persona</button>
-    </header>
-    <section class="stats">
-      <article class="stat-card">
-        <span class="stat-label">TOTAL REGISTRADOS</span>
-        <strong>248</strong><small class="positive">↑ 12 este mes</small>
-      </article>
-      <article class="stat-card accent-blue">
-        <span class="stat-label">ACTIVOS</span>
-        <strong>196</strong><small>Participan actualmente</small>
-      </article>
-      <article class="stat-card accent-orange">
-        <span class="stat-label">PENDIENTES</span>
-        <strong>18</strong><small>Información incompleta</small>
-      </article>
-      <article class="stat-card accent-green">
-        <span class="stat-label">ASISTENCIA PROMEDIO</span>
-        <strong>87%</strong><small>Últimos 30 días</small>
-      </article>
-    </section>
-    <section id="registros" class="people-section" tabindex="-1">
-      <div class="section-header">
-        <div>
-          <h2>Registros de prueba</h2>
-          <p id="estado-datos" role="status" aria-live="polite">Pulsa el botón para consultar los datos.</p>
-        </div>
-        <button type="button" id="cargar-datos" class="btn-primary">Cargar datos</button>
-      </div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col">ID</th><th scope="col">NOMBRE</th><th scope="col">MENSAJE</th></tr></thead>
-          <tbody id="tabla-registros"></tbody>
-        </table>
-      </div>
-    </section>
-  </main>
-  <script src="{{ url_for('static', path='/js/Home.js') }}"></script>
-</body>
-</html>
+{% extends "PanelBase.html" %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<header class="topbar">
+  <div><p class="eyebrow">UN ESPACIO PARA ORGANIZARNOS</p><h1>Inicio</h1><p class="subtitle">La información de nuestra comunidad, en un solo lugar.</p></div>
+  <a class="btn-primary" href="/admin/personas/nueva">+ Agregar persona</a>
+</header>
+<section class="stats" aria-label="Resumen general, pendiente de conectar">
+  {% for label, note, accent in [('Personas registradas', 'Directorio de la comunidad', ''), ('Buscan empleo', 'Situación laboral registrada', 'accent-blue'), ('Oficios y profesiones', 'Experiencia de nuestra comunidad', 'accent-gold'), ('Datos por revisar', 'Información pendiente de completar', 'accent-green')] %}
+  <article class="stat-card {{ accent }}"><span class="stat-label">{{ label }}</span><strong aria-label="Sin datos conectados">—</strong><small>{{ note }}</small></article>
+  {% endfor %}
+</section>
+<section class="welcome-panel">
+  <div><p class="eyebrow">CADA PERSONA CUENTA</p><h2>Conocer mejor para acompañar mejor.</h2><p>Consulta fichas, encuentra oficios y organiza la información que comparte la comunidad.</p><a href="/admin/personas" class="text-link">Ir al directorio de personas <span aria-hidden="true">→</span></a></div>
+  <div class="welcome-mark" aria-hidden="true"><span>E</span><small>EFRATA</small></div>
+</section>
+<section aria-labelledby="accesos-titulo" class="section-space">
+  <div class="section-heading"><h2 id="accesos-titulo">¿Por dónde comenzamos?</h2><p>Accesos a tus herramientas de administración.</p></div>
+  <div class="shortcut-grid">
+    <a class="shortcut" href="/admin/personas"><span class="shortcut-number">01</span><h3>Personas</h3><p>Busca por nombre, contacto, oficio o situación laboral.</p><span class="text-link">Abrir directorio →</span></a>
+    <a class="shortcut" href="/admin/reportes"><span class="shortcut-number">02</span><h3>Reportes</h3><p>Prepara listados con los campos y filtros que necesites.</p><span class="text-link">Preparar un reporte →</span></a>
+    <a class="shortcut" href="/admin/administradores"><span class="shortcut-number">03</span><h3>Administradores</h3><p>Revisa la estructura de las cuentas que tendrán acceso al panel.</p><span class="text-link">Ver administradores →</span></a>
+  </div>
+</section>
+{% endblock %}

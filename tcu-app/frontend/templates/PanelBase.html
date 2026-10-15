@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Administración{% endblock %} | Efrata</title>
+  <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
+  {% block styles %}{% endblock %}
+  <script src="{{ url_for('static', path='/js/Panel.js') }}" defer></script>
+  {% block scripts %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <aside class="sidebar" aria-label="Panel administrativo">
+    <div class="sidebar-heading">
+      <a class="brand" href="/admin" aria-label="Efrata, inicio del panel"><span class="brand-mark" aria-hidden="true">E</span><span><strong>Efrata</strong><small>Gestión de nuestra comunidad</small></span></a>
+      <button type="button" class="mobile-menu-toggle" aria-controls="main-navigation" aria-expanded="false" hidden><span aria-hidden="true">☰</span> <span class="menu-text">Menú</span></button>
+    </div>
+    <nav id="main-navigation" aria-label="Navegación principal">
+      <p class="nav-caption">ADMINISTRACIÓN</p>
+      {% for key, href, icon, label in [('inicio', '/admin', '⌂', 'Inicio'), ('personas', '/admin/personas', '♙', 'Personas'), ('reportes', '/admin/reportes', '▤', 'Reportes'), ('administradores', '/admin/administradores', '⚿', 'Administradores')] %}
+      <a href="{{ href }}" class="nav-item{% if active_page == key %} active{% endif %}"{% if active_page == key %} aria-current="page"{% endif %}><span class="nav-icon" aria-hidden="true">{{ icon }}</span><span>{{ label }}</span></a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-user"><span class="avatar" aria-hidden="true">A</span><span><strong>Administración</strong><small>Iglesia Efrata</small></span></div>
+      <a href="/" target="_blank" rel="noopener" class="sidebar-link">Ver formulario público <span aria-hidden="true">↗</span></a>
+      <a href="/login" class="sidebar-link">Volver al acceso <span aria-hidden="true">→</span></a>
+    </div>
+  </aside>
+  <main id="contenido" class="content" tabindex="-1">
+    <div class="panel-context"><span>Iglesia Efrata / Administración</span><span class="preview-badge">Vista de diseño</span></div>
+    {% block content %}{% endblock %}
+    <footer class="panel-footer">Efrata · Gestión comunitaria <span>Las operaciones de estas pantallas aún no guardan datos.</span></footer>
+  </main>
+  <div class="toast" id="panel-aviso" role="status" aria-live="polite" hidden></div>
+</body>
+</html>

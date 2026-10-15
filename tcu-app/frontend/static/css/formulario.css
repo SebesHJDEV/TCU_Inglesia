@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap");
+
+/* Campos reutilizados por el registro público y el formulario del panel. */
+.person-form { margin-top: 28px; }
+.person-form .form-section { border: 0; border-bottom: 1px solid var(--line, #d8e1e5); padding: 0 0 36px; margin: 0 0 36px; min-width: 0; scroll-margin-top: 24px; }
+.person-form .form-section legend { display: flex; align-items: center; gap: 12px; padding: 0; margin-bottom: 10px; color: var(--navy, #213b4d); font-size: 21px; font-weight: 700; line-height: 1.5; letter-spacing: -.5px; }
+.person-form .section-number { display: inline-grid; place-items: center; flex: 0 0 34px; height: 34px; background: #e9eff0; color: #496578; font: 12px "DM Mono", monospace; }
+.person-form .section-description { margin: 0 0 26px; color: #5c6e7c; font-size: 14px; line-height: 1.7; }
+.person-form .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: 26px 32px; }
+.person-form .field { display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.person-form .field-wide { grid-column: 1 / -1; }
+.person-form .field label { display: block; margin: 0; color: #243e50; font: 600 14px/1.6 "Manrope", Arial, sans-serif; }
+.person-form .optional { display: inline; margin-left: 5px; color: #677985; font-size: 11px; font-weight: 400; }
+.person-form .required { color: #9b641c; }
+.person-form input, .person-form select, .person-form textarea {
+  display: block; box-sizing: border-box; width: 100%; min-width: 0; min-height: 54px;
+  margin: 0; padding: 14px 16px; border: 1px solid #b9c9d1; border-radius: 3px;
+  background: #fff; color: #213b4d; font: 400 16px/1.5 "Manrope", Arial, sans-serif;
+  box-shadow: 0 1px 2px #213b4d05;
+  transition: border-color .15s, box-shadow .15s;
+}
+.person-form select { padding-right: 34px; cursor: pointer; }
+.person-form textarea { min-height: 140px; resize: vertical; }
+.person-form input:hover, .person-form select:hover, .person-form textarea:hover { border-color: #7593a5; }
+.person-form input:focus, .person-form select:focus, .person-form textarea:focus { border-color: #315e77; outline: 0; box-shadow: 0 0 0 3px #315e771c; }
+.person-form input::placeholder, .person-form textarea::placeholder { color: #72838e; opacity: 1; }
+.person-form .field small { margin: 0; font-size: 12px; line-height: 1.6; color: #627582; }
+.person-form .form-actions { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 18px; }
+.person-form .field-help { color: #607482; font-size: 13px; line-height: 1.7; margin: 0; }
+.person-form .field-help.section-description { margin: 0 0 24px; }
+.person-form .form-feedback { margin-top: 24px; padding: 18px 20px; border-left: 3px solid #b78539; background: #eaf0f1; color: #29495b; font-size: 14px; line-height: 1.7; }
+
+/* Página pública: una sola superficie abierta, sin tarjeta ni panel lateral. */
+.public-page {
+  --navy: #213b4d; --gold: #dba34f; --line: #d8e1e5;
+  margin: 0; background: #f7f9f8; color: #213b4d;
+  font: 15px/1.7 "Manrope", Arial, sans-serif;
+}
+.public-page *, .public-page *::before, .public-page *::after { box-sizing: border-box; }
+.public-page [hidden] { display: none !important; }
+.public-page h1, .public-page h2, .public-page p { margin-top: 0; }
+.public-page a { color: inherit; text-underline-offset: 4px; }
+.public-page a, .public-page button { touch-action: manipulation; }
+.public-page :focus-visible { outline: 3px solid #a9762e; outline-offset: 4px; }
+.public-header { background: #fff; border-top: 3px solid var(--gold); border-bottom: 1px solid #e2e9eb; padding: 20px max(28px, calc((100vw - 1040px) / 2)); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+.public-brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+.public-brand .brand-mark { display: grid; place-items: center; width: 42px; height: 42px; background: var(--navy); color: #edc178; font-size: 24px; font-weight: 800; }
+.public-brand strong { display: block; font-size: 24px; line-height: 1.25; letter-spacing: -.7px; }
+.public-brand small { display: block; font-size: 11px; color: #647886; margin-top: 2px; }
+.public-header-note { font-size: 12px; color: #647886; }
+.public-layout { width: 100%; max-width: 1096px; padding: 0 28px; margin: 0 auto; }
+.public-intro { padding: 48px 0 0; }
+.public-intro .eyebrow { color: #8b652e; font: 11px/1.7 "DM Mono", monospace; letter-spacing: .1em; margin-bottom: 16px; }
+.public-intro h1 { font-size: clamp(30px, 3.4vw, 44px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.2; margin-bottom: 16px; max-width: 800px; }
+.public-intro > p:not(.eyebrow) { max-width: 720px; margin-bottom: 10px; color: #566d7c; font-size: 16px; line-height: 1.8; }
+.public-intro .intro-note { font-size: 13px !important; color: #6a7b86 !important; }
+.form-outline { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin: 30px 0 0; padding: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.form-outline li { min-width: 0; }
+.form-outline a { display: flex; align-items: center; gap: 12px; padding: 20px 0; min-height: 66px; text-decoration: none; color: #3c596b; font-size: 13px; font-weight: 600; line-height: 1.5; }
+.form-outline a:hover { color: #8b652e; }
+.form-outline span { color: #97713c; font: 11px "DM Mono", monospace; flex-shrink: 0; }
+.public-form-panel { padding: 36px 0 52px; min-width: 0; }
+.public-form-panel .section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin-bottom: 8px; }
+.public-form-panel .section-heading h2 { font-size: 18px; font-weight: 700; letter-spacing: -.3px; margin: 0; }
+.public-form-panel .section-heading p { margin: 0; font-size: 12px; color: #627582; }
+.public-page .required { color: #93641f; }
+.public-page .design-note { margin: 0; color: #677c8a; font-size: 12px; }
+.public-page .person-form { margin-top: 32px; }
+.public-page .btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 18px; min-height: 54px; padding: 14px 25px; border: 0; border-radius: 3px; background: var(--navy); color: #fff; font: 700 14px/1.5 "Manrope", Arial, sans-serif; cursor: pointer; }
+.public-page .btn-primary:hover { background: #345a70; }
+.public-footer { padding: 22px max(28px, calc((100vw - 1040px) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid #e0e7e9; color: #647886; font-size: 11px; background: #fff; }
+@media (max-width: 760px) {
+  .person-form .form-grid { grid-template-columns: 1fr; gap: 23px; }
+  .person-form .form-section { padding-bottom: 28px; margin-bottom: 28px; }
+  .person-form .form-section legend { font-size: 18px; gap: 10px; }
+  .person-form .section-description { margin-bottom: 22px; font-size: 13px; }
+  .public-header { padding: 16px 22px; }
+  .public-header-note { display: none; }
+  .public-brand strong { font-size: 22px; }
+  .public-layout { padding: 0 22px; }
+  .public-intro { padding: 26px 0 22px; border-bottom: 1px solid var(--line); }
+  .public-intro h1 { font-size: 30px; letter-spacing: -1px; max-width: 480px; margin-bottom: 12px; }
+  .public-intro > p:not(.eyebrow) { font-size: 14px; line-height: 1.75; }
+  .form-outline, .public-intro .intro-note { display: none; }
+  .public-form-panel { padding: 26px 0 36px; }
+  .public-form-panel .section-heading { align-items: flex-start; flex-direction: column; gap: 3px; }
+  .public-page .person-form { margin-top: 26px; }
+  .person-form .form-actions { flex-direction: column; align-items: stretch; }
+  .public-page .btn-primary { width: 100%; min-height: 56px; font-size: 15px; }
+  .public-footer { flex-direction: column; align-items: flex-start; gap: 5px; padding: 20px 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .person-form input, .person-form select, .person-form textarea { transition: none; }
+}
