@@ -63,7 +63,7 @@ jobs:
           sudo -n docker image tag efrata-app:servidor efrata-app:anterior
           # Verifica las importaciones antes de reemplazar el contenedor que funciona.
           if ! sudo -n docker compose build app || \
-             ! sudo -n docker compose run --rm --no-deps app python -c 'from main import app'; then
+             ! sudo -n docker compose run --rm --no-deps -T --interactive=false app python -c 'from main import app' < /dev/null; then
             sudo -n docker image tag efrata-app:anterior efrata-app:servidor
             exit 1
           fi
